@@ -2,6 +2,15 @@
 
 Portable, multi-provider chat app scaffold for **web + mobile-first + desktop-ready** usage.
 
+## ✅ Cost-friendly mode: pure Docker + Git
+
+You can run this project with only:
+
+- **Git** (clone/version control)
+- **Docker / Docker Compose** (build + run)
+
+No paid cloud services are required to use this skeleton locally.
+
 ## What this skeleton gives you now
 
 - FastAPI backend with a **provider abstraction layer** and a single chat endpoint.
@@ -14,8 +23,25 @@ Portable, multi-provider chat app scaffold for **web + mobile-first + desktop-re
 - Experimental **router middleware** endpoint to map task routes (e.g. `coding`, `research`) to provider+model pairs.
 - Responsive **UI shell** with a modern chat layout, provider/model switcher, and runtime theme switching.
 - Theme token system (`/v1/themes`) so skins can be swapped quickly without rewrites.
+- **Docker-first runtime** so you do not need a local Python/macOS dev setup.
 
 > Current provider implementations are safe echo stubs. Replace each stub with official SDK calls once credentials are wired.
+
+## Quick start (pure Docker + Git)
+
+```bash
+git clone <your-repo-url>
+cd Enhanced-AI-Chat
+docker compose up --build
+```
+
+Then open: `http://127.0.0.1:8080`
+
+To stop:
+
+```bash
+docker compose down
+```
 
 ## API surface
 
@@ -43,34 +69,27 @@ FastAPI Gateway
    └─ Artifact/Tool execution services (next step)
 ```
 
-## Stable connector strategy (what to plug in next)
+## Stable connector strategy (plug in later)
 
-Use official SDKs and OAuth libraries first:
+Use official SDKs first:
 
 - OpenAI: `openai` SDK
 - Anthropic: `anthropic` SDK
-- Google Gemini: `google-genai` or current official Gemini SDK path
+- Google Gemini: `google-genai` (or current official Gemini SDK path)
 - xAI: official `xai-sdk`
-- OAuth broker: `Authlib` (FastAPI) or external IdP (Auth0/Clerk/WorkOS)
 
-### Why this approach
+For auth, start with simple API-key mode in test environments. Add OAuth only when needed.
 
-- Avoids custom auth implementations.
-- Keeps provider adapters isolated and replaceable.
-- Makes it easy to add/remove platforms later without rewriting UI or orchestration.
-
-## Run locally
+## Optional local run (if ever needed)
 
 ```bash
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-Open `http://127.0.0.1:8000`.
-
 ## Next implementation milestones
 
-1. Add real OAuth callback/session endpoints (`/v1/auth/*`) with secure token storage.
+1. Add real auth endpoints (`/v1/auth/*`) and secure token storage.
 2. Replace `EchoProvider` with provider-specific adapters using official SDKs.
 3. Add streaming responses (SSE/WebSocket).
 4. Add artifact service (file generation, previews, downloads).

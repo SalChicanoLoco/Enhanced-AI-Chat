@@ -1,0 +1,12 @@
+services:
+  enhanced-ai-chat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: enhanced-ai-chat:dev
+    container_name: enhanced-ai-chat
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      UVICORN_WORKERS: "1"
